@@ -1,0 +1,66 @@
+{
+  "firestore": {
+    "rules": "firebase/firestore.rules",
+    "indexes": "firebase/firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "firebase/storage.rules"
+  },
+  "hosting": {
+    "site": "builza",
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/flutter_service_worker.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/index.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "builza",
+          "appId": "1:1092308165588:android:328177b4ae2752e83bac41",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "builza",
+          "configurations": {
+            "android": "1:1092308165588:android:328177b4ae2752e83bac41",
+            "ios": "1:1092308165588:ios:798deb75948036c83bac41",
+            "web": "1:1092308165588:web:518f373b05e538e63bac41",
+            "windows": "1:1092308165588:web:b0be4036798c75873bac41"
+          }
+        }
+      }
+    }
+  }
+}
