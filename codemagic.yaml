@@ -25,3 +25,28 @@ workflows:
           cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/Builza.apk
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
+
+  builza-macos:
+    name: Builza macOS
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Enable macOS desktop
+        script: flutter config --enable-macos-desktop
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Install CocoaPods
+        script: find . -name "Podfile" -execdir pod install \;
+      - name: Build Builza macOS app
+        script: flutter build macos --release
+      - name: Zip Builza.app
+        script: |
+          APP_PATH=$(find "$CM_BUILD_DIR/build/macos" -name "Builza.app" | head -n 1)
+          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$CM_BUILD_DIR/Builza-macos.zip"
+    artifacts:
+      - Builza-macos.zip
+      - build/macos/**/*.app

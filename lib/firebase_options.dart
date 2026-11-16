@@ -17,6 +17,8 @@ class DefaultFirebaseOptions {
         return ios;
       case TargetPlatform.windows:
         return windows;
+      case TargetPlatform.macOS:
+        return macos;
       default:
         throw UnsupportedError(
           'This platform is not configured. Run flutterfire configure.',
@@ -59,4 +61,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'builza.firebasestorage.app',
     iosBundleId: 'com.example.builza',
   );
+
+  static const FirebaseOptions macos = ios;
 }
